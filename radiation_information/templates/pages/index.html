@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- left sidebar -->
+<ul id="slide-out" class="side-nav fixed z-depth-4">
+      <li>
+        <div class="userView">
+          <div class="background">
+            <img src="{% static 'assets/img/photo1.png' %}">
+          </div>
+          <a href="#!user"><img class="circle" src="{% static 'assets/img/avatar04.png' %}"></a>
+          <a href="#!name"><span class="white-text name">Welcome back,</span></a>
+          <a href="#!email"><span class="white-text email">user!</span></a>
+        </div>
+      </li>
+
+    
+
+      <li><a class="active" href="{% url 'index' %}"><i class="material-icons pink-item">dashboard</i>Dashboard</a></li>
+      <li><div class="divider"></div></li>
+
+      <li><a class="subheader">Management</a></li>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Search<i class="material-icons pink-item">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                  <li><a href="{% url 'index' %}">All Radiation</a> </li>
+
+                  {% for place in places %}
+                <li><a href="?place={{ place.id }}">{{ place.place_name }}</a></li>
+                  {% endfor %}
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+<!-- /left sidebar -->
+
+    <main>
+        <section class="content">
+            <div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out"
+                                                         class="button-collapse valign hide-on-large-only"><i
+                    class="material-icons">menu</i></a>
+                <h1 class="page-announce-text valign">Radiation Information </h1></div>
+            <!-- Stat Boxes -->
+            <div class="row">
+                <div class="col l3 s6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>420</h3>
+                            <p>Accounts</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" class="animsition-link">More info <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col l3 s6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>69</h3>
+                            <p>New Toons</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" class="animsition-link">More info <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col l3 s6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>36</h3>
+                            <p>Support Emails</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-email"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" class="animsition-link">More info <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col l3 s6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>1337</h3>
+                            <p>Unique Visitors</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" class="animsition-link">More info <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <h3 class="center-align">Radiation Table</h3>
+                    <div class="custom-responsive">
+                        <table class="striped hover centered">
+                            <thead>
+                            <tr>
+                                <th rowspan="2">Serial No</th>
+                                <th rowspan="2">Place</th>
+                                <th rowspan="2">Area</th>
+                                <th rowspan="2">Type</th>
+                                <th rowspan="2">Brand</th>
+                                <th rowspan="1" colspan="3">Measured Value</th>
+                                <th rowspan="2">Alarm</th>
+                                <th rowspan="2">Collection Date</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">EF V/m</th>
+                                <th rowspan="2">MF μT</th>
+                                <th rowspan="2">Power mW/cm<sup>2</sup></th>
+                            </tr>
+                            </thead>
+                            {% if radiations %}
+                                {% for radiation in radiations %}
+                                    <tbody>
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ radiation.place }}</td>
+                                        <td>{{ radiation.area }}</td>
+                                        <td>{{ radiation.type }}</td>
+                                        <td>{{ radiation.brand }}</td>
+                                        <td>{{ radiation.EF_measured_value }}</td>
+                                        <td>{{ radiation.MF_measured_value }}</td>
+                                        <td>{{ radiation.power_measured_value }}</td>
+                                        <td>{{ radiation.alarm }}</td>
+                                        <td>{{ radiation.date }}</td>
+                                    </tr>
+                                    </tbody>
+                                {% endfor %}
+                            {% else %}
+                                <alert>No Radiation available</alert>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}
