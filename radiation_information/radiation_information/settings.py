@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
-    'place.apps.PlaceConfig',
     'radiation_measurement.apps.RadiationMeasurementConfig',
     'django.contrib.admin',
     'django.contrib.auth',

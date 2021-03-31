@@ -1,12 +1,18 @@
 from django.db import models
-from place.models import Place
 
 
 # Create your models here.
+class Type(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Radiation_measurement(models.Model):
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.CharField(max_length=100)
     area = models.CharField(max_length=40)
-    type = models.CharField(max_length=50)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)
     brand = models.CharField(max_length=40)
     measured_value_EF = models.CharField(max_length=10, default='EF V/m', editable=False)
     EF_measured_value = models.CharField(max_length=30)
@@ -18,8 +24,8 @@ class Radiation_measurement(models.Model):
     date = models.DateTimeField(auto_now_add=False)
 
     @staticmethod
-    def all_radiation_by_placeId(place_id):
-        if place_id:
-            return Radiation_measurement.objects.filter(place=place_id)
+    def all_radiation_by_typeId(type_id):
+        if type_id:
+            return Radiation_measurement.objects.filter(type=type_id)
 
         return Radiation_measurement.objects.all()

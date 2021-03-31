@@ -1,22 +1,22 @@
 from django.shortcuts import render
 from django.views import View
-from radiation_measurement.models import Radiation_measurement
-from place.models import Place
+from radiation_measurement.models import Radiation_measurement, Type
+
 
 # Create your views here.
 
 class Index(View):
     def get(self, request):
-        place = Place.objects.all()
-        place_req = request.GET.get('place')
-        if place_req:
-            radiation = Radiation_measurement.all_radiation_by_placeId(place_req)
+        type = Type.objects.all()
+        type_req = request.GET.get('type')
+        if type_req:
+            radiation = Radiation_measurement.all_radiation_by_typeId(type_req)
 
         else:
             radiation = Radiation_measurement.objects.all()
 
         dict = {
-            'places': place,
+            'types': type,
             'radiations': radiation
         }
 

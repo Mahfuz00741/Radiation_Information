@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Radiation_measurement
+from .models import Radiation_measurement, Type
 
 
 # Register your models here.
@@ -8,4 +8,6 @@ class Admin_display(admin.ModelAdmin):
                     'alarm', 'date']
 
 
+admin.site.register(Type)
 admin.site.register(Radiation_measurement, Admin_display)
+
